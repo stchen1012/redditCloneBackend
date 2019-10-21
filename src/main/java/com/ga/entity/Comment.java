@@ -34,5 +34,39 @@ public class Comment {
 	public Comment() {
 		
 	}
+
+	public Long getCommentId() {
+		return commentId;
+	}
+
+	public void setCommentId(Long commentId) {
+		this.commentId = commentId;
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
+	public User getUserComment() {
+		return userComment;
+	}
+
+	public void setUserComment(User userComment) {
+		this.userComment = userComment;
+	}
+
+	public Post getPost() {
+		return post;
+	}
+
+	public void setPost(Post post) {
+		this.post = post;
+	}
+	
+	
 	
 }
