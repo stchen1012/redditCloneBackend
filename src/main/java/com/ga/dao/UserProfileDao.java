@@ -1,5 +1,11 @@
 package com.ga.dao;
 
-public interface UserProfileDao {
+import com.ga.entity.UserProfile;
 
+public interface UserProfileDao {
+	public UserProfile addUserProfile(String username, UserProfile newProfile);
+	
+	public UserProfile updateUserProfile(String username, UserProfile updateProfile);
+
+	public UserProfile getUserProfile(String username);
 }
