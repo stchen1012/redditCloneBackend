@@ -2,33 +2,85 @@ package com.ga.dao;
 
 import java.util.List;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import com.ga.entity.Comment;
 import com.ga.entity.Post;
+import com.ga.entity.User;
 
+@Repository
 public class PostDaoImpl implements PostDao {
-
+	
+	@Autowired
+	private SessionFactory sessionFactory; 
+	
 	@Override
 	public List<Post> getAllPosts() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Post> posts = null;
+		
+		Session session = sessionFactory.getCurrentSession();
+		
+		try {
+			session.beginTransaction();
+			posts = session.createQuery("From posts").getResultList();
+		} finally {
+			session.close();
+		}
+		return posts;
 	}
-
+	
 	@Override
 	public List<Post> getAllPostByUserId(Long userId) {
-		// TODO Auto-generated method stub
-		return null;
+		User user = null;
+		Session session = sessionFactory.getCurrentSession();
+		
+		try {
+			session.beginTransaction();
+			
+			user = session.get(User.class, userId);
+		} finally {
+			session.close();
+		}
+		
+		return user.getPosts();
 	}
 
 	@Override
-	public List<Comment> getCommentsByPostId(Long postId) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Comment> getCommentsByPostId(Long commentId) {
+		User user = null;
+		Session session = sessionFactory.getCurrentSession();
+		
+		try {
+			session.beginTransaction();
+			
+			user = session.get(User.class, commentId);
+		} finally {
+			session.close();
+		}
+		
+		return user.getComments();
 	}
 
 	@Override
 	public Post deletePost(Long postId) {
-		// TODO Auto-generated method stub
-		return null;
+		Post savedPost = null;
+		
+		Session session = sessionFactory.getCurrentSession();
+		
+		try {
+			session.beginTransaction();
+			savedPost = session.get(Post.class, postId);
+			
+			session.delete(savedPost);
+			
+			session.getTransaction().commit();
+		} finally {
+			session.close();
+		}
+		return savedPost;
 	}
 
 }
