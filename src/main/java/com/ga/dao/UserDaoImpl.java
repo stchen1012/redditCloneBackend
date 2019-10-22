@@ -70,21 +70,22 @@ public class UserDaoImpl implements UserDao {
 }
 
 	public User addPost(String username, Post post) {
-		Session session = sessionFactory.getCurrentSession();
-		
 		User user = getUserByUsername(username);
+		Session session = sessionFactory.getCurrentSession();
+
 		if (user == null) {
 			return null;
 		} 
 		
 		try {
+			
 			session.beginTransaction();
 			
 			List<Post> posts = user.getPosts();
 			posts.add(post);
 			user.setPosts(posts);
 			
-			session.save(user);
+			session.update(user);
 			
 			session.getTransaction().commit();
 		} finally {
@@ -95,7 +96,7 @@ public class UserDaoImpl implements UserDao {
 		
 		
 
-	public User addComment(String username, Comment comment) {
+	public User addComment(String username, Comment comment, Post post) {
 		Session session = sessionFactory.getCurrentSession();
 		
 		User user = getUserByUsername(username);
@@ -117,5 +118,11 @@ public class UserDaoImpl implements UserDao {
 			session.close();
 		}
 		return user;
+	}
+
+	@Override
+	public User addComment(String username, Comment comment) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

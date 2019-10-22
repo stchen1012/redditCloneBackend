@@ -22,10 +22,10 @@ public class User {
 	@JoinColumn(name = "user_profile_id")
 	private UserProfile userProfile;
 	
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
 	private List<Post> posts;
 	
-	@OneToMany(mappedBy = "userComment", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "userComment", cascade = CascadeType.ALL)
 	private List<Comment> comments;
 	
 	public User() {

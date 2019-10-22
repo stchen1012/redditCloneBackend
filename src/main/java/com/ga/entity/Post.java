@@ -20,11 +20,11 @@ public class Post {
 	@Column(nullable=false)
 	private String description;
 	
-	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+	@ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinColumn(name="user_id")
 	private User user;
 	
-	@OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "post", cascade = CascadeType.ALL)
 	private List<Comment> comments;
 	
 	
