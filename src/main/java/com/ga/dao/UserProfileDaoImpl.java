@@ -44,6 +44,7 @@ public class UserProfileDaoImpl implements UserProfileDao {
 		return user.getUserProfile();
 	}
 
+	//TO-DO - Remove old multiple profiles created per user
 	@Override
 	public UserProfile updateUserProfile(String username, UserProfile updateProfile) {
 		User user = userDao.getUserByUsername(username);
