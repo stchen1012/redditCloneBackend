@@ -10,5 +10,5 @@ public interface PostDao {
 	public List<Post> getAllPosts();
 	public List<Post> getAllPostByUserId(Long userId);
 	public List<Comment> getCommentsByPostId(Long postId);
-	public Post deletePost(Long postId);
+	public Post deletePost(Long postId, Long userId);
 }

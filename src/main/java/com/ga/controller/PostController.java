@@ -20,11 +20,13 @@ public class PostController {
 	@Autowired
 	PostService postService;
 	
+	//TODO - userId is ignored, update  to show userID when loading
 	@GetMapping("/list")
 	public List<Post> getAllPosts(){
 		return postService.getAllPosts();
 	}
 	
+	//TODO - userId is ignored, update  to show userID when loading
 	@GetMapping("/list/{userId}")
 	public List<Post> getAllPostByUserId(@PathVariable Long userId){
 		return postService.getAllPostByUserId(userId);
@@ -35,8 +37,8 @@ public class PostController {
 		return postService.getCommentsByPostId(postId);
 	}
 	
-	@DeleteMapping("/{postId}")
-	public Post deletePost(@PathVariable Long postId) {
-		return postService.deletePost(postId);
+	@DeleteMapping("/{userId}/{postId}")
+	public Post deletePost(@PathVariable Long postId, @PathVariable Long userId) {
+		return postService.deletePost(postId, userId);
 	}
 }

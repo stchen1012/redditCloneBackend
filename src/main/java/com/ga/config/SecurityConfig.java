@@ -46,6 +46,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		auth.userDetailsService(userService);
 	}
 	
+	
+	//TODO - add auth to post and comment
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 	    http.csrf().disable()

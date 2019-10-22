@@ -16,6 +16,6 @@ public interface UserService extends UserDetailsService {
 	
 	public User addPost(String username, Post post);
 	
-	public User addComment(String username, Comment comment);
+	public User addComment(String username, Long postId, Comment comment);
 
 }

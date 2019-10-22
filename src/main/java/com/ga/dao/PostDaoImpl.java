@@ -25,7 +25,7 @@ public class PostDaoImpl implements PostDao {
 		
 		try {
 			session.beginTransaction();
-			posts = session.createQuery("From posts").getResultList();
+			posts = session.createQuery("From Post").getResultList();
 		} finally {
 			session.close();
 		}
@@ -65,15 +65,17 @@ public class PostDaoImpl implements PostDao {
 	}
 
 	@Override
-	public Post deletePost(Long postId) {
+	public Post deletePost(Long postId, Long userId) {
 		Post savedPost = null;
-		
 		Session session = sessionFactory.getCurrentSession();
+		User user = session.get(User.class, userId);
 		
 		try {
 			session.beginTransaction();
 			savedPost = session.get(Post.class, postId);
 			
+			List<Post> posts = user.getPosts();
+//			posts
 			session.delete(savedPost);
 			
 			session.getTransaction().commit();

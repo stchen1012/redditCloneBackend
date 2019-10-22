@@ -18,6 +18,8 @@ public interface UserDao {
 	
 	public User addPost(String username, Post post);
 	
-	public User addComment(String username, Comment comment);
+	public User addComment(String username, Long postId, Comment comment);
+
+	public Post getPostById(long postId);
 
 }

@@ -64,8 +64,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User addComment(String username, Comment comment) {
-		return userDao.addComment(username, comment);
+	public User addComment(String username, Long postId, Comment comment) {
+		return userDao.addComment(username, postId, comment);
 	}
 	
 	@Override

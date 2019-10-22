@@ -10,6 +10,8 @@ package com.ga.entity;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name="comments")
@@ -23,10 +25,12 @@ public class Comment {
 	@Column(nullable=false)
 	private String text;
 	
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinColumn(name="user_id")
 	private User userComment;
-	
+
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinColumn(name="post_id")
 	private Post post;
