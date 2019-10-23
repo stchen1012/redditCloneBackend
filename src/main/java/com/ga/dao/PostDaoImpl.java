@@ -49,19 +49,19 @@ public class PostDaoImpl implements PostDao {
 	}
 
 	@Override
-	public List<Comment> getCommentsByPostId(Long commentId) {
-		User user = null;
+	public List<Comment> getCommentsByPostId(Long postId) {
+		Post post = null;
 		Session session = sessionFactory.getCurrentSession();
 		
 		try {
 			session.beginTransaction();
+			post = session.get(Post.class, postId);
 			
-			user = session.get(User.class, commentId);
 		} finally {
 			session.close();
 		}
 		
-		return user.getComments();
+		return post.getComments();
 	}
 
 //	@Override
@@ -105,6 +105,7 @@ public class PostDaoImpl implements PostDao {
 			posts.remove(savedPost);
 			user.setPosts(posts);
 			session.saveOrUpdate(user);
+
 			session.delete(savedPost);
 			
 			session.getTransaction().commit();

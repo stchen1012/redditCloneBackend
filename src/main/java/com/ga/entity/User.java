@@ -24,11 +24,12 @@ public class User {
 	@JoinColumn(name = "user_profile_id")
 	private UserProfile userProfile;
 	
-	//we had CascadeType.REMOVE here to test
-	//10.23 added orphanRemoval to test
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval=true)
+
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
 	private List<Post> posts;
 	
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "userComment", cascade = CascadeType.ALL)
 	private List<Comment> comments;
 	

@@ -101,11 +101,9 @@ public class UserDaoImpl implements UserDao {
 			session.beginTransaction();
 			
 			List<Post> posts = user.getPosts();
-			post.setUser(user);
+			post.setUser(user);	
 			posts.add(post);
 			user.setPosts(posts);
-			
-			
 			session.update(user);
 			
 			session.getTransaction().commit();
