@@ -4,6 +4,9 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="users")
 public class User {
@@ -22,9 +25,11 @@ public class User {
 	@JoinColumn(name = "user_profile_id")
 	private UserProfile userProfile;
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.REMOVE)
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval=true)
 	private List<Post> posts;
 	
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "userComment", cascade = CascadeType.ALL)
 	private List<Comment> comments;
 	

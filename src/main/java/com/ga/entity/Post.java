@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 @Entity
@@ -22,11 +23,11 @@ public class Post {
 	@Column(nullable=false)
 	private String description;
 	
-	@JsonIgnore
 	@ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinColumn(name="user_id")
 	private User user;
 	
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "post", cascade = {CascadeType.DETACH,
             CascadeType.MERGE, CascadeType.REFRESH})
 	private List<Comment> comments;

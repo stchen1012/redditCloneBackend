@@ -68,14 +68,18 @@ public class PostDaoImpl implements PostDao {
 	public Post deletePost(Long postId, Long userId) {
 		Post savedPost = null;
 		Session session = sessionFactory.getCurrentSession();
-		User user = session.get(User.class, userId);
-		
+
 		try {
 			session.beginTransaction();
 			savedPost = session.get(Post.class, postId);
+			User user = session.get(User.class, userId);
 			
 			List<Post> posts = user.getPosts();
-//			posts
+			
+			posts.remove(savedPost);
+			user.setPosts(posts);
+			session.saveOrUpdate(user);
+			
 			session.delete(savedPost);
 			
 			session.getTransaction().commit();
