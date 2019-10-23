@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="users")
 public class User {
@@ -22,7 +24,9 @@ public class User {
 	@JoinColumn(name = "user_profile_id")
 	private UserProfile userProfile;
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.REMOVE)
+	//we had CascadeType.REMOVE here to test
+	//10.23 added orphanRemoval to test
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval=true)
 	private List<Post> posts;
 	
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "userComment", cascade = CascadeType.ALL)

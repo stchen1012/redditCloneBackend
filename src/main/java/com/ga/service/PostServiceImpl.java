@@ -30,9 +30,14 @@ public class PostServiceImpl implements PostService {
 		return postDao.getCommentsByPostId(postId);
 	}
 
+//	@Override
+//	public Post deletePost(Long userId, Long postId) {
+//		return postDao.deletePost(userId, postId);
+//	}
+	
 	@Override
-	public Post deletePost(Long postId, Long userId) {
-		return postDao.deletePost(postId, userId);
+	public Long deletePost(Long postId) {
+		return postDao.deletePost(postId);
 	}
 
 }

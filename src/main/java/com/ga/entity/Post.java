@@ -27,10 +27,12 @@ public class Post {
 	@JoinColumn(name="user_id")
 	private User user;
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "post", cascade = {CascadeType.DETACH,
-            CascadeType.MERGE, CascadeType.REFRESH})
-	private List<Comment> comments;
+//	@OneToMany(fetch = FetchType.EAGER, mappedBy = "post", cascade = {CascadeType.DETACH,
+//            CascadeType.MERGE, CascadeType.REFRESH})
+//	private List<Comment> comments;
 	
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "post", cascade = CascadeType.ALL)
+	private List<Comment> comments;
 	
 	public Post() {
 		

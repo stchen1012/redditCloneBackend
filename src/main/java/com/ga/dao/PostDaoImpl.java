@@ -64,25 +64,54 @@ public class PostDaoImpl implements PostDao {
 		return user.getComments();
 	}
 
+//	@Override
+//	public Post deletePost(Long userId, Long postId) {
+//		Post savedPost = null;
+//		Session session = sessionFactory.getCurrentSession();
+//		User user = session.get(User.class, userId);
+//		
+//		try {
+//			session.beginTransaction();
+//			savedPost = session.get(Post.class, postId);
+//			
+//			List<Post> posts = user.getPosts();
+////			posts
+//			//added below two lines
+//			posts.remove(savedPost);
+//			session.save(posts);
+//			
+//			session.delete(savedPost);
+//			
+//			session.getTransaction().commit();
+//		} finally {
+//			session.close();
+//		}
+//		return savedPost;
+//	}
+	
 	@Override
-	public Post deletePost(Long postId, Long userId) {
-		Post savedPost = null;
+	public Long deletePost(Long postId) {
 		Session session = sessionFactory.getCurrentSession();
-		User user = session.get(User.class, userId);
+		Post savedPost = null;
+		User user = null;
+		
 		
 		try {
 			session.beginTransaction();
-			savedPost = session.get(Post.class, postId);
 			
+			savedPost = session.get(Post.class, postId);
+			user = savedPost.getUser();
 			List<Post> posts = user.getPosts();
-//			posts
+			posts.remove(savedPost);
+			user.setPosts(posts);
+			session.saveOrUpdate(user);
 			session.delete(savedPost);
 			
 			session.getTransaction().commit();
 		} finally {
 			session.close();
 		}
-		return savedPost;
+		return savedPost.getPostId();
 	}
 
 }
