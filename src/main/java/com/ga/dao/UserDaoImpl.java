@@ -100,11 +100,12 @@ public class UserDaoImpl implements UserDao {
 			
 			session.beginTransaction();
 			
-			List<Post> posts = user.getPosts();
+//			List<Post> posts = user.getPosts();
 			post.setUser(user);	
-			posts.add(post);
-			user.setPosts(posts);
-			session.update(user);
+//			posts.add(post);
+//			user.setPosts(posts);
+//			session.update(user);
+			session.saveOrUpdate(post);
 			
 			session.getTransaction().commit();
 		} finally {
@@ -133,18 +134,20 @@ public class UserDaoImpl implements UserDao {
 			comment.setPost(post);
 			comment.setUserComment(user);
 			
-			List<Comment> postComments = post.getComments();
-			postComments.add(comment);
-			post.setComments(postComments);
-			
-			List<Comment> comments = user.getComments();
-			comments.add(comment);
-			user.setComments(comments);
-			
-			
-			session.update(post);
-			
-			session.update(user);
+//			List<Comment> postComments = post.getComments();
+//			postComments.add(comment);
+//			post.setComments(postComments);
+//			
+//			List<Comment> comments = user.getComments();
+//			comments.add(comment);
+//			user.setComments(comments);
+//			
+//			
+//			session.update(post);
+//			
+//			session.update(user);
+//			
+			session.save(comment);
 			
 			session.getTransaction().commit();
 		} finally {

@@ -25,13 +25,13 @@ public class User {
 	@JoinColumn(name = "user_profile_id")
 	private UserProfile userProfile;
 	
-	@JsonIgnore
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval=true)
-	private List<Post> posts;
-	
-	@JsonIgnore
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "userComment", cascade = CascadeType.ALL)
-	private List<Comment> comments;
+//	@JsonIgnore
+//	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval=true)
+//	private List<Post> posts;
+//	
+//	@JsonIgnore
+//	@OneToMany(fetch = FetchType.EAGER, mappedBy = "userComment", cascade = CascadeType.ALL)
+//	private List<Comment> comments;
 	
 	public User() {
 		
@@ -69,22 +69,22 @@ public class User {
 		this.userProfile = userProfile;
 	}
 
-	public List<Post> getPosts() {
-		return posts;
-	}
-
-	public void setPosts(List<Post> posts) {
-		this.posts = posts;
-	}
-
-	public List<Comment> getComments() {
-		return comments;
-	}
-
-	public void setComments(List<Comment> comments) {
-		this.comments = comments;
-	}
-	
+//	public List<Post> getPosts() {
+//		return posts;
+//	}
+//
+//	public void setPosts(List<Post> posts) {
+//		this.posts = posts;
+//	}
+//
+//	public List<Comment> getComments() {
+//		return comments;
+//	}
+//
+//	public void setComments(List<Comment> comments) {
+//		this.comments = comments;
+//	}
+//	
 	
 	
 	

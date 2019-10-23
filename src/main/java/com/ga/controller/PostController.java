@@ -37,8 +37,13 @@ public class PostController {
 		return postService.getCommentsByPostId(postId);
 	}
 	
-	@DeleteMapping("/{userId}/{postId}")
-	public Post deletePost(@PathVariable Long postId, @PathVariable Long userId) {
-		return postService.deletePost(postId, userId);
+//	@DeleteMapping("/{userId}/{postId}")
+//	public Post deletePost(@PathVariable Long postId, @PathVariable Long userId) {
+//		return postService.deletePost(postId, userId);
+//	}
+	
+	@DeleteMapping("/{postId}")
+	public Long deletePost(@PathVariable Long postId) {
+		return postService.deletePost(postId);
 	}
 }

@@ -27,10 +27,18 @@ public class Post {
 	@JoinColumn(name="user_id")
 	private User user;
 	
-	@JsonIgnore
+	
+	//This works for delete
+//	@JsonIgnore
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "post", cascade = {CascadeType.DETACH,
-            CascadeType.MERGE, CascadeType.REFRESH})
+            CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
 	private List<Comment> comments;
+	
+	
+	//DONT USE - THIS BREAKS THE COMMENTS TO POST 
+//	@JsonIgnore
+//	@OneToMany(fetch = FetchType.EAGER, mappedBy = "post", cascade = CascadeType.ALL)
+//	private List<Comment> comments;
 	
 	
 	public Post() {
