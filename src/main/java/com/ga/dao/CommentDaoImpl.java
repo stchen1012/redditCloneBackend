@@ -29,4 +29,3 @@ public class CommentDaoImpl implements CommentDao {
         return savedComment.getCommentId();
     }    
 }
-}
