@@ -35,8 +35,8 @@ public class AppConfig {
 		
 		dataSource.setDriverClassName("org.postgresql.Driver");
 		dataSource.setUrl("jdbc:postgresql://localhost:5432/reddit");
-//		dataSource.setUsername("postgres");
-//		dataSource.setPassword("0722");
+		dataSource.setUsername("postgres");
+		dataSource.setPassword("0722");
 
 		return dataSource;
 	}
