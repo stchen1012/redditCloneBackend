@@ -55,13 +55,45 @@ public class UserControllerTest {
 	      
 	      System.out.println(result.getResponse().getContentAsString());
 	}
+	
+//	@Test
+//	public void signup_User_Failure() throws Exception {
+//		RequestBuilder requestBuilder = MockMvcRequestBuilders
+//			       .post("/user/signup")
+//			       .contentType(MediaType.APPLICATION_JSON)
+//			       .content(createUserInJson("test","tester"));
+//		
+//		when(userService.signup(any())).thenReturn("");
+//		
+//		MvcResult result = mockMvc.perform(requestBuilder)
+//	              .andExpect(status().isOk())
+//	              .andExpect(content().json("{\"token\":\"\"}"))
+//	              .andReturn();
+//	      
+//	      System.out.println(result.getResponse().getContentAsString());
+//	}
 
-	//This converts to JSON object bc we have no JACKSON here
+	//This converts to JSON object
 	private static String createUserInJson(String username, String password) {
 		return "{ \"username\": \"" + username + "\", " + "\"password\":\"" + password + "\"}";
 	}
-
-	// /login
+	
+	@Test
+	public void login_User_Success() throws Exception {
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.post("/user/login")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(createUserInJson("test", "tester"));
+		
+		when(userService.login(any())).thenReturn("1234");
+		
+		MvcResult result = mockMvc.perform(requestBuilder)
+				.andExpect(status().isOk())
+				.andExpect(content().json("{\"token\":\"1234\"}"))
+				.andReturn();
+		System.out.println(result.getResponse().getContentAsString());
+	}
+	
 
 	// /{username}/post
 
