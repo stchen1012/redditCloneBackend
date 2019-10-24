@@ -47,14 +47,33 @@ public class PostDaoImpl implements PostDao {
 //
 //}
     
+//    @Override
+//    public List<Post> getAllPostByUserId(Long userId) {
+//        List<Post> posts = null;
+//        Session session = sessionFactory.getCurrentSession();
+//        
+//        try {
+//            session.beginTransaction();
+//            
+//            posts = (List <Post>)session.createQuery("FROM Post p WHERE p.user =" + userId).getResultList();
+//        } finally {
+//            session.close();
+//        }
+//        
+//        return posts;
+//    }
+    
     @Override
-    public List<Post> getAllPostByUserId(Long userId) {
+    public List<Post> getAllPostByUsername(String username) {
         List<Post> posts = null;
+        User user = null;
+        
         Session session = sessionFactory.getCurrentSession();
         
         try {
             session.beginTransaction();
-            
+            user = (User)session.createQuery("FROM User u WHERE u.username = '" + username + "'").getSingleResult();
+            Long userId = user.getUserId();
             posts = (List <Post>)session.createQuery("FROM Post p WHERE p.user =" + userId).getResultList();
         } finally {
             session.close();
@@ -62,6 +81,8 @@ public class PostDaoImpl implements PostDao {
         
         return posts;
     }
+    
+    
     @Override
     public List<Comment> getCommentsByPostId(Long postId) {
         Post post = null;

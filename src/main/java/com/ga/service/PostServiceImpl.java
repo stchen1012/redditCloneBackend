@@ -14,10 +14,16 @@ public class PostServiceImpl implements PostService {
     public List<Post> getAllPosts() {
         return postDao.getAllPosts();
     }
+//    @Override
+//    public List<Post> getAllPostByUserId(Long userId) {
+//        return postDao.getAllPostByUserId(userId);
+//    }
+    
     @Override
-    public List<Post> getAllPostByUserId(Long userId) {
-        return postDao.getAllPostByUserId(userId);
+    public List<Post> getAllPostByUsername(String username) {
+    	return postDao.getAllPostByUsername(username);
     }
+    
     @Override
     public List<Comment> getCommentsByPostId(Long postId) {
         return postDao.getCommentsByPostId(postId);

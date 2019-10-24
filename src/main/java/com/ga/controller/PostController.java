@@ -27,10 +27,16 @@ public class PostController {
 	}
 	
 	//TODO - userId is ignored, update  to show userID when loading
-	@GetMapping("/list/{userId}")
-	public List<Post> getAllPostByUserId(@PathVariable Long userId){
-		return postService.getAllPostByUserId(userId);
+//	@GetMapping("/list/{userId}")
+//	public List<Post> getAllPostByUserId(@PathVariable Long userId){
+//		return postService.getAllPostByUserId(userId);
+//	}
+	
+	@GetMapping("/list/{username}")
+	public List<Post> getAllPostByUsername(@PathVariable String username) {
+		return postService.getAllPostByUsername(username);
 	}
+	
 	
 	@GetMapping("/{postId}/comments")
 	public List<Comment> getCommentsByPostId(@PathVariable Long postId){
