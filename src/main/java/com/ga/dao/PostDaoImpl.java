@@ -21,7 +21,7 @@ public class PostDaoImpl implements PostDao {
         
         try {
             session.beginTransaction();
-            posts = session.createQuery("From Post").getResultList();
+            posts = session.createQuery("From Post ORDER by postId ASC").getResultList();
         } finally {
             session.close();
         }
