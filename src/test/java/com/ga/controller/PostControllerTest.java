@@ -100,7 +100,7 @@ public class PostControllerTest {
     	
     	
     	MvcResult result = mockMvc.perform(requestBuilder)
-//    		.andExpect(status().isOk())
+    		.andExpect(status().isOk())
     		.andReturn();		    	
     }
     
@@ -113,8 +113,21 @@ public class PostControllerTest {
     	when(postService.getCommentsByPostId(any())).thenReturn(comments);  	
     	
     	MvcResult result = mockMvc.perform(requestBuilder)
-//        		.andExpect(status().isOk())
+        		.andExpect(status().isOk())
         		.andReturn();		    	
+    }
+    
+    @Test
+    public void deletePost_Long_SUCCESS() throws Exception {
+    	RequestBuilder requestBuilder = MockMvcRequestBuilders
+    			.delete("/post/{postId}", 1)
+    			.contentType(MediaType.APPLICATION_JSON);
+    	
+    	when(postService.deletePost(any())).thenReturn(1L);
+		
+    	MvcResult result = mockMvc.perform(requestBuilder)
+	              .andExpect(status().isOk())
+	              .andReturn();    	
     }
     
     
