@@ -10,7 +10,6 @@ The redditClone backend has been created to allow for users to login, sign up, c
 * [ERD](#erd)
 
 ## Dependencies and Installation
--	Java
 - Maven
 - TomCat
 - Spring
@@ -18,9 +17,6 @@ The redditClone backend has been created to allow for users to login, sign up, c
 - Postgres
 - Junit
 - Mockito
--	Git / GitHub - version control and a shared working repository
--	Pivotal Tracker - user stories
-
 
 ## Project Deliverables and Timeline
 10/21
