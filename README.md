@@ -15,7 +15,7 @@ The redditClone backend has been created to allow for users to login, sign up, c
 - Spring
 - Hibernate
 - Postgres
-- Junit
+- JUnit
 - Mockito
 
 ## Project Deliverables and Timeline
@@ -44,7 +44,7 @@ The redditClone backend has been created to allow for users to login, sign up, c
 
 ## General Approach
 
-The general approach taken was to work collaboratively to ensure that all project deliverables would be met. We began with the planning phase where we developed a list of endpoints that would need to be created and discussed the best way to structure the relationship between the USER, POST and COMMENT objects and created a deliverables timeline. We focused on building the backend within the first few days so that we would have ample time to integrate, create unit tests and troubleshoot any unforeseen errors.
+The general approach taken was to work collaboratively to ensure that all project deliverables would be met. We began with the planning phase where we developed a list of endpoints that would need to be created and discussed the best way to structure the relationship between the USER, POST and COMMENT objects and created a deliverables timeline. After generally discussing user stories and utilizing pivotal tracker to allocate and prioritize work, we focused on building the backend within the first few days so that we would have ample time to integrate, create unit tests and troubleshoot any unforeseen errors for the remainder of the project.
 
 A few of the challenges that we encountered and how we resolved those issues:
 
