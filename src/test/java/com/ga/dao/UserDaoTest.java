@@ -17,6 +17,8 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
+import com.ga.entity.Comment;
+import com.ga.entity.Post;
 import com.ga.entity.User;
 
 public class UserDaoTest {
@@ -75,5 +77,26 @@ public class UserDaoTest {
         assertNotNull("Test returned null object, expected non-null", savedUser);
         assertEquals(savedUser, user);
     }
+
+    @Test
+    public void getUser_User_Success() {
+    	when(session.createQuery(anyString())).thenReturn(query);
+    	when(query.uniqueResult()).thenReturn(user);
+    	
+    	User savedUser = userDao.getUserByUsername("test");
+    	
+    	assertNotNull("Test returned null, expected non-null", savedUser);
+    	assertEquals(savedUser, user);
+    	
+    }
+    
+    //public Post getPostById(long postId)
+    
+    
+    
+    //public User addPost(String username, Post post)
+    
+    
+    //public User addComment(String username, Long postId, Comment comment)
     
 }
