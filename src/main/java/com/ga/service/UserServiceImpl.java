@@ -31,15 +31,9 @@ public class UserServiceImpl implements UserService {
 	@Autowired
     JwtUtil jwtUtil;
 
-//	@Override
-//	public List<User> listUsers() {
-//		return userDao.listUsers();
-//	}
-
 	@Override
 	public String signup(User user) {
 			user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-			//the above line will now save your encrypted pw into DB
         	if(userDao.signup(user).getUserId() != null) {
             		UserDetails userDetails = loadUserByUsername(user.getUsername());
             		
@@ -88,8 +82,6 @@ public class UserServiceImpl implements UserService {
 
 	private List<GrantedAuthority> getGrantedAuthorities(User user) {
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-
-		//authorities.add(new SimpleGrantedAuthority(user.getUserRole().getName()));
 		authorities.add(new SimpleGrantedAuthority(user.getUsername()));
 
 		return authorities;

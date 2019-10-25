@@ -9,8 +9,7 @@ import com.ga.entity.UserProfile;
 @Service
 public class UserProfileServiceImpl implements UserProfileService {
 
-//	@Autowired
-//	UserProfileDao userProfileDao;
+
 	private UserProfileDao userProfileDao;
     
     @Autowired

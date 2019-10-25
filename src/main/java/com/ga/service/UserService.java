@@ -8,8 +8,6 @@ import com.ga.entity.User;
 
 public interface UserService extends UserDetailsService {
 
-//	public List<User> listUsers();
-
 	public String signup(User user);
 
 	public String login(User user);

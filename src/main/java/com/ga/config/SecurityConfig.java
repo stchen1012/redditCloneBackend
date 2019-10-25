@@ -27,14 +27,6 @@ import com.ga.service.UserService;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @ComponentScan("com.ga")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-//	@Override
-//	public void configure(AuthenticationManagerBuilder auth) throws Exception {	
-//	    @SuppressWarnings("deprecation")
-//		User.UserBuilder users = User.withDefaultPasswordEncoder();
-//	    
-//	    auth.inMemoryAuthentication().withUser(users.username("test").password("test").roles("ADMIN"));
-//	    auth.inMemoryAuthentication().withUser(users.username("dba").password("dba").roles("DBA"));
-//	}
 	
 	@Bean("encoder")
 	public PasswordEncoder encoder() {

@@ -28,6 +28,4 @@ public class CommentController {
 	public List<Comment> getAllPostByUserId(@PathVariable String username){
 		return commentService.getAllCommentByUserName(username);
 	}
-	
-
 }

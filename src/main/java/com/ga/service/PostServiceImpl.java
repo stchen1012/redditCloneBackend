@@ -14,10 +14,6 @@ public class PostServiceImpl implements PostService {
     public List<Post> getAllPosts() {
         return postDao.getAllPosts();
     }
-//    @Override
-//    public List<Post> getAllPostByUserId(Long userId) {
-//        return postDao.getAllPostByUserId(userId);
-//    }
     
     @Override
     public List<Post> getAllPostByUsername(String username) {
@@ -28,10 +24,7 @@ public class PostServiceImpl implements PostService {
     public List<Comment> getCommentsByPostId(Long postId) {
         return postDao.getCommentsByPostId(postId);
     }
-//    @Override
-//    public Post deletePost(Long postId, Long userId) {
-//        return postDao.deletePost(postId, userId);
-//    }
+
     @Override
     public Long deletePost(Long postId) {
         return postDao.deletePost(postId);
