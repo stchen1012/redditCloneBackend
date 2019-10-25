@@ -100,8 +100,7 @@ public class UserControllerTest {
 		System.out.println(result.getResponse().getContentAsString());
 	}
 	
-
-	// /{username}/post
+	
 	@Test
 	public void addPost_User_Success() throws Exception {
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -123,7 +122,26 @@ public class UserControllerTest {
 		return "{ \"title\": \"" + title + "\", " + "\"description\":\"" + description + "\"}";
 	}
 	
-	//add comment to push above code
 
-	// /{username}/{postId}/comment
+	@Test
+	public void addComment_User_Success() throws Exception {
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+			       .post("/user/{username}/{postId}/comment", "someUser", "1")
+			       .contentType(MediaType.APPLICATION_JSON)
+			       .content(createCommentInJson("text"));
+		
+		when(userService.addComment((any()),any(),any())).thenReturn(user);
+		
+		MvcResult result = mockMvc.perform(requestBuilder)
+	              .andExpect(status().isOk())
+	              .andExpect(content().json("{\"username\":\"test\"}"))
+	              .andReturn();
+	      
+	      System.out.println(result.getResponse().getContentAsString());
+	} 
+	//This converts to JSON object
+	private static String createCommentInJson(String text) {
+		return "{ \"text\": \"" + text + "\"}";
+	}
+	
 }
