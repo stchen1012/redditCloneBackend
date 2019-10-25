@@ -16,12 +16,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
+import static org.mockito.ArgumentMatchers.any;
 
 import com.ga.entity.Comment;
 import com.ga.entity.Post;
 import com.ga.entity.User;
 
 public class UserDaoTest {
+	
+	
 	@Rule
 	public MockitoRule rule = MockitoJUnit.rule();
 
@@ -42,6 +45,13 @@ public class UserDaoTest {
 	private Transaction transaction;
 	
 	@Mock
+	private Post post;
+	
+	@Mock
+	private Comment comment;
+	
+	
+	@Mock
     Query<User> query;
 	
 	@Before
@@ -51,12 +61,19 @@ public class UserDaoTest {
 	}
     
     @Before
-    public void initializeDummyUser() {
+    public void initialize() {
         
         user.setUserId(1L);
         user.setUsername("batman");
         user.setPassword("robin");
+        post.setPostId(1L);
+        post.setTitle("hello");
+        post.setDescription("world");
+        comment.setCommentId(1L);
+        comment.setText("hi");
+        
     }
+    
     
     @Test
     public void signup_User_Success() {
@@ -79,7 +96,7 @@ public class UserDaoTest {
     }
 
     @Test
-    public void getUser_User_Success() {
+    public void getUserByUsername_User_Success() {
     	when(session.createQuery(anyString())).thenReturn(query);
     	when(query.uniqueResult()).thenReturn(user);
     	
@@ -90,13 +107,40 @@ public class UserDaoTest {
     	
     }
     
-    //public Post getPostById(long postId)
+    @Test
+    public void getPostById_Post_Success() {
+    	 when(session.get(any(Class.class), any())).thenReturn(post);
+    	 
+    	 Post newPost = userDao.getPostById(3);
+    	 
+    	 assertNotNull("Test returned null, expected non-null", newPost);
+     	 assertEquals(newPost, post);
+    	 
+    }
     
     
+    @Test
+    public void addPost_User_Success() {
+    	when(session.createQuery(anyString())).thenReturn(query);
+    	when(query.uniqueResult()).thenReturn(user);
+    	
+    	User newUser = userDao.addPost("batman", post);
+    	
+    	assertNotNull("Test returned null, expected non-null", newUser);
+    	assertEquals(newUser, user);
+    	
+    }
     
-    //public User addPost(String username, Post post)
+    @Test
+    public void addComment_User_Success() {
+    	when(session.createQuery(anyString())).thenReturn(query);
+    	when(query.uniqueResult()).thenReturn(user);
+    	
+    	User newUserComment = userDao.addComment("test", 1L, comment);
+    	
+    	assertNotNull("Test returned null, expected non-null", newUserComment);
+    	assertEquals(newUserComment, user);
+    }
     
-    
-    //public User addComment(String username, Long postId, Comment comment)
     
 }
