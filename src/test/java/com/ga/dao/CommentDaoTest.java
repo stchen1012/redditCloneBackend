@@ -2,6 +2,7 @@ package com.ga.dao;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
@@ -84,7 +85,12 @@ public class CommentDaoTest {
     
     @Test
     public void deleteComment_Long_SUCCESS() {
-
+    	when(session.get(any(Class.class), any())).thenReturn(comment);
+    	
+    	Long tempId = commentDao.deleteComment(1L);
+    	
+    	assertNotNull("Tested returned null obj, expected not null", tempId);
+    	assertEquals(comment.getCommentId(), tempId);    	
     }
 
 }
