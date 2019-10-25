@@ -41,7 +41,7 @@ public class PostControllerTest {
 	
     
     @InjectMocks
-    UserController postController;
+    PostController postController;
     
 	@Mock
 	PostService postService;
@@ -50,7 +50,7 @@ public class PostControllerTest {
     @Before
     public void init() {
         mockMvc = MockMvcBuilders.standaloneSetup(postController).build();
-    }
+    } 
     
     @Before
     public void initializer() {
