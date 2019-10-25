@@ -3,11 +3,17 @@
 The redditClone backend has been created to allow for users to login, sign up, create/delete posts and comments. 
 
 ## Table of Contents
+* [Technologies Used](#technologies-used)
 * [Dependencies and Installation](#dependencies-and-installation)
 * [Project Deliverables and Timeline](#project-deliverables-and-timeline)
 * [General Approach](#general-approach)
 * [User Stories](#user-stories)
 * [ERD](#erd)
+
+## Technologies Used
+- Java - utilized Eclipse as the IDE
+- Git / GitHub - to host our code for version control and a shared working repository
+- Pivotal Tracker - to write user stories and keep track of the technical requirements
 
 ## Dependencies and Installation
 - Maven
