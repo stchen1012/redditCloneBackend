@@ -1,13 +1,23 @@
 # redditClone Backend
 
-
+The redditClone backend has been created to allow for users to login, sign up, create/delete posts and comments. 
 
 ## Table of Contents
-* [Project Deliverables and Timeline](#project-deliverables-and-timeline)
 * [Technologies Used](#technologies-used)
+* [Project Deliverables and Timeline](#project-deliverables-and-timeline)
 * [General Approach](#general-approach)
 * [User Stories](#user-stories)
 * [ERD](#erd)
+
+## Technologies Used
+-	Java
+- Maven
+- TomCat
+- Spring
+- Hibernate
+-	Git / GitHub - version control and a shared working repository
+-	Pivotal Tracker - user stories
+
 
 ## Project Deliverables and Timeline
 10/21
@@ -32,13 +42,6 @@
 10/25
 - Testing
 
-## Technologies Used
--	Java
-- Maven
-- TomCat
-- Spring
--	Git / GitHub - to host our code for version control and a shared working repository
--	Pivotal Tracker - to write user stories and keep track of the technical requirements
 
 ## General Approach
 
