@@ -3,7 +3,7 @@
 The redditClone backend has been created to allow for users to login, sign up, create/delete posts and comments. 
 
 ## Table of Contents
-* [Technologies Used](#technologies-used)
+* [Dependencies and Installation](#dependencies-and-installation)
 * [Project Deliverables and Timeline](#project-deliverables-and-timeline)
 * [General Approach](#general-approach)
 * [User Stories](#user-stories)
