@@ -9,15 +9,21 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.when;
 
 import com.ga.config.JwtUtil;
 import com.ga.dao.UserDao;
+import com.ga.entity.Comment;
+import com.ga.entity.Post;
 import com.ga.entity.User;
 import com.ga.entity.UserProfile;
 
 public class UserServiceTest {
 
+	private Comment comment;
+	private Post post;
+	
 	@Mock
 	UserDao userDao;
 	
@@ -42,6 +48,17 @@ public class UserServiceTest {
 		user.setUserId(1L);
 		user.setPassword("123");
 		user.setUsername("batman");
+		
+		post = new Post();
+		post.setDescription("GGG");
+		post.setPostId(1L);
+		post.setTitle("TITLE");
+		
+		comment = new Comment();
+		comment.setCommentId(1L);
+		comment.setText("HIHI");
+		comment.setPost(post);
+		comment.setPost(post);
 		
 		userProfile.setAddress("124");
 		userProfile.setEmail("aa@aa.com");
@@ -75,6 +92,25 @@ public class UserServiceTest {
         
         String actualToken = userService.login(user);
         assertEquals(actualToken, expectedToken);
-        
     }
+	
+	@Test
+	public void addComment_User_SUCCESS() {
+		when(userDao.addComment(any(), any(), any())).thenReturn(user);
+		
+		User tempUser = userService.addComment("Phil", 1L, comment);
+		assertNotNull("Tested returned null obj, expected not null", tempUser);
+		assertEquals(tempUser.getUserId(), user.getUserId());
+	}
+	
+	@Test
+	public void addPost_User_SUCCESS() {
+		when(userDao.addPost(any(), any())).thenReturn(user);
+		User tempUser = userService.addPost("Phil", post);
+		assertNotNull("Tested returned null obj, expected not null", tempUser);
+		assertEquals(tempUser.getUserId(), user.getUserId());
+		
+	}
+	
+	
 }

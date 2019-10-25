@@ -71,7 +71,7 @@ public class CommentDaoTest {
     }
 	
     @Test
-    public void deleteComment_Long_SUCCESS() {
+    public void getAllCommentByUserName_Posts_SUCCESS() {
     	when(session.createQuery(anyString())).thenReturn(query, queryComment);
     	when(query.uniqueResult()).thenReturn(user);
     	when(queryComment.getResultList()).thenReturn(comments);
@@ -83,8 +83,8 @@ public class CommentDaoTest {
     }
     
     @Test
-    public void getAllCommentByUserName_Posts_SUCCESS() {
-    	
+    public void deleteComment_Long_SUCCESS() {
+
     }
 
 }
