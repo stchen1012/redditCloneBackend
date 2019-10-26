@@ -84,6 +84,25 @@ public class UserProfileControllerTest {
 	      
 	      System.out.println(result.getResponse().getContentAsString());
 	} 
+	
+	@Test
+	public void updateUserProfile_UserProfile_SUCCESS() throws Exception {
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+			       .patch("/profile/{username}", "someUser")
+			       .contentType(MediaType.APPLICATION_JSON)
+			       .content("{\"email\":\"batman@superhero.com\"}");
+		
+		when(userProfileService.updateUserProfile((any()), any())).thenReturn(userProfile);
+		
+		MvcResult result = mockMvc.perform(requestBuilder)
+	              .andExpect(status().isOk())
+	              .andExpect(content().json("{\"email\":\"batman@superhero.com\"}"))
+	              .andReturn();
+	      
+	      System.out.println(result.getResponse().getContentAsString());		
+	}
+	
+	
 	//This converts to JSON object
 	private static String createUserProfileInJson(String email, String mobile, String address) {
 		return "{ \"email\": \"" + email + "\", " + "\"mobile\":\"" + mobile + "\", " + "\"address\":\"" + address + "\"}";

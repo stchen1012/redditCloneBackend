@@ -2,7 +2,7 @@ package com.ga.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
-
+import static org.mockito.ArgumentMatchers.any;
 import java.util.List;
 
 import org.junit.Before;
@@ -18,8 +18,6 @@ import com.ga.entity.UserProfile;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserProfileServiceTest {
-	
-	private UserProfile newUserProfile;
 	
 	@InjectMocks
 	UserProfileServiceImpl userProfileService;
@@ -42,14 +40,21 @@ public class UserProfileServiceTest {
 	@Test
 	public void addUserProfile_UserProfile_SUCCESS(){
 		when(userProfileDao.addUserProfile("someUser", userProfile)).thenReturn(userProfile);
-		newUserProfile = userProfileService.addUserProfile("someUser", userProfile);
+		UserProfile newUserProfile = userProfileService.addUserProfile("someUser", userProfile);
 		assertEquals(newUserProfile.getEmail(), userProfile.getEmail());
 	}
 	
 	@Test
 	public void getUserProfile_UserProfile_SUCCESS() {
 		when(userProfileDao.getUserProfile("someUser")).thenReturn(userProfile);
-		newUserProfile = userProfileService.getUserProfile("someUser");
+		UserProfile newUserProfile = userProfileService.getUserProfile("someUser");
+		assertEquals(newUserProfile.getEmail(), userProfile.getEmail());
+	}
+	
+	@Test
+	public void updateUserProfile_UserProfile_SUCCESS() {
+		when(userProfileDao.updateUserProfile(any(),any())).thenReturn(userProfile);
+		UserProfile newUserProfile = userProfileService.updateUserProfile("someUser", userProfile);
 		assertEquals(newUserProfile.getEmail(), userProfile.getEmail());
 	}
 }

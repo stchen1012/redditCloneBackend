@@ -63,9 +63,6 @@ public class CommentServiceTest {
     	when(commentDao.getAllCommentByUserName(any())).thenReturn(comments);
     	List<Comment> myComments = commentService.getAllCommentByUserName("someUesr");
     	assertEquals(comments, myComments);
-    	
     }
-	
-	
 
 }

@@ -26,7 +26,6 @@ public class UserProfileDaoImpl implements UserProfileDao {
 		try {
 			session.beginTransaction();
 
-			session.save(userProfile);
 			user.setUserProfile(userProfile);
 			session.update(user);
 
@@ -48,21 +47,22 @@ public class UserProfileDaoImpl implements UserProfileDao {
 	@Override
 	public UserProfile updateUserProfile(String username, UserProfile updateProfile) {
 		User user = userDao.getUserByUsername(username);
-
+		UserProfile up = null;
 		Session session = sessionFactory.getCurrentSession();
 
 		try {
 			session.beginTransaction();
-
-			session.update(updateProfile);
-			user.setUserProfile(updateProfile);
-			session.update(user);
-
+			
+			up = session.get(UserProfile.class, user.getUserProfile().getProfileId());
+			if(updateProfile.getAddress() != null) up.setAddress(updateProfile.getAddress());
+			if(updateProfile.getMobile() != null) up.setMobile(updateProfile.getMobile());
+			if(updateProfile.getEmail() != null) up.setEmail(updateProfile.getEmail());
+//			session.saveOrUpdate(up);
 			session.getTransaction().commit();
 		} finally {
 			session.close();
 		}
 
-		return updateProfile;
+		return up;
 	}
 }
