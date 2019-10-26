@@ -1,5 +1,6 @@
 package com.ga.controller;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +10,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ga.config.JwtUtil;
 import com.ga.entity.Comment;
 import com.ga.entity.JwtResponse;
 import com.ga.entity.Post;
@@ -25,6 +28,10 @@ public class UserController {
 	@Autowired
 	UserService userService;
 	
+	@Autowired
+	JwtUtil jwtUtil;
+	
+	
 	@PostMapping("/signup")
 	public ResponseEntity<?> signup(@RequestBody User user) {
         	return ResponseEntity.ok(new JwtResponse(userService.signup(user)));
@@ -35,13 +42,19 @@ public class UserController {
         return ResponseEntity.ok(new JwtResponse(userService.login(user)));
 	}
 	
-	@PostMapping("/{username}/post")
-	public User addPost(@PathVariable String username, @RequestBody Post post) {
-		return userService.addPost(username, post);
+	@PostMapping("/post")
+	public User addPost(@RequestHeader("Authorization") String headerToken, @RequestBody Post post) {
+		return userService.addPost(getUserNameFromToken(headerToken), post);
 	}
 	
-	@PostMapping("/{username}/{postId}/comment")
-	public User addComment(@PathVariable String username, @PathVariable Long postId, @RequestBody Comment comment) {
-		return userService.addComment(username, postId, comment);
+	@PostMapping("/{postId}/comment")
+	public User addComment(@RequestHeader("Authorization") String headerToken, @PathVariable Long postId, @RequestBody Comment comment) {
+		return userService.addComment(getUserNameFromToken(headerToken), postId, comment);
+	}
+	
+	// helper method to get username from token
+	private String getUserNameFromToken(String token) {
+		List<String> header = Arrays.asList(token.split(" "));
+		return jwtUtil.getUsernameFromToken(header.get(1));
 	}
 }

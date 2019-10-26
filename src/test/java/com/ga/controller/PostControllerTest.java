@@ -120,7 +120,7 @@ public class PostControllerTest {
     @Test
     public void deletePost_Long_SUCCESS() throws Exception {
     	RequestBuilder requestBuilder = MockMvcRequestBuilders
-    			.delete("/post/{postId}", 1)
+    			.delete("/post/remove/{postId}", 1)
     			.contentType(MediaType.APPLICATION_JSON);
     	
     	when(postService.deletePost(any())).thenReturn(1L);

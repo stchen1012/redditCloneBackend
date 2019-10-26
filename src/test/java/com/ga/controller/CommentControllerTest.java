@@ -49,7 +49,7 @@ public class CommentControllerTest {
 	@Test
     public void deleteComment_Long_SUCCESS() throws Exception {
     	RequestBuilder requestBuilder = MockMvcRequestBuilders
-    			.delete("/comment/{commentId}", 1)
+    			.delete("/comment/remove/{commentId}", 1)
     			.contentType(MediaType.APPLICATION_JSON);
     	
     	when(commentService.deleteComment(any())).thenReturn(1L);

@@ -38,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	   CorsConfiguration configuration = new CorsConfiguration();
 	   configuration.setAllowedOrigins(Arrays.asList("*"));
 	   configuration 
-	       .setAllowedMethods(Arrays.asList("GET", "POST", "DELETE", "PUT"));
+	       .setAllowedMethods(Arrays.asList("GET", "POST", "DELETE", "PUT", "PATCH"));
 	   configuration.setAllowedHeaders(
 	       Arrays.asList("X-Requested-With", "Origin", "Content-Type", "Accept", "Authorization", "cache-control"));
 	   configuration.setAllowCredentials(true);
@@ -65,7 +65,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
  			.csrf().disable()
 	        .authorizeRequests()
 	        .antMatchers("/user/signup/**", "/user/login/**").permitAll()
-	        .antMatchers("/user/**", "/profile/**").authenticated()
+	        .antMatchers("/user/**", "/profile/**", "/post/remove/**", "/comment/remove/**").authenticated()
 	        .and()
 	        .httpBasic()
 	        .and()

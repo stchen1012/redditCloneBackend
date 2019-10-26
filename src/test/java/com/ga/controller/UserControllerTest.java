@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import com.ga.config.JwtUtil;
 import com.ga.entity.Post;
 import com.ga.entity.User;
 import com.ga.entity.UserProfile;
@@ -38,6 +39,9 @@ public class UserControllerTest {
 
 	@Mock
 	UserService userService;
+	
+	@Mock
+	private JwtUtil jwtUtil;
 
 	@Before
 	public void init() {
@@ -104,11 +108,13 @@ public class UserControllerTest {
 	@Test
 	public void addPost_User_Success() throws Exception {
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
-			       .post("/user/{username}/post", "someUser")
+			       .post("/user/post")
 			       .contentType(MediaType.APPLICATION_JSON)
+			       .header("Authorization", "Bearer 1234")
 			       .content(createUserPostInJson("test","testPost"));
 		
 		when(userService.addPost((any()), any())).thenReturn(user);
+		when(jwtUtil.getUsernameFromToken(any())).thenReturn("someUser");
 		
 		MvcResult result = mockMvc.perform(requestBuilder)
 	              .andExpect(status().isOk())
@@ -126,15 +132,17 @@ public class UserControllerTest {
 	@Test
 	public void addComment_User_Success() throws Exception {
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
-			       .post("/user/{username}/{postId}/comment", "someUser", "1")
+			       .post("/user/{postId}/comment","1")
 			       .contentType(MediaType.APPLICATION_JSON)
+			       .header("Authorization", "Bearer 1234")
 			       .content(createCommentInJson("text"));
 		
 		when(userService.addComment((any()),any(),any())).thenReturn(user);
+		when(jwtUtil.getUsernameFromToken(any())).thenReturn("someUser");
 		
 		MvcResult result = mockMvc.perform(requestBuilder)
 	              .andExpect(status().isOk())
-//	              .andExpect(content().json("{\"username\":\"test\"}"))
+	              .andExpect(content().json("{\"username\":\"test\"}"))
 	              .andReturn();
 	      
 	      System.out.println(result.getResponse().getContentAsString());

@@ -19,7 +19,7 @@ public class CommentController {
 	@Autowired
 	CommentService commentService;
 	
-	@DeleteMapping("/{commentId}")
+	@DeleteMapping("/remove/{commentId}")
 	public Long deleteComment(@PathVariable Long commentId) {
 		return commentService.deleteComment(commentId);
 	}
