@@ -21,19 +21,15 @@ The redditClone backend has been created to allow for users to login, sign up, c
 - Maven
 - Tomcat
 	- Apache Tomcat, created by the Apache Software Foundation, is an open-source HTTP server and a container for Java Servlets and Java Server Pages (JSPs), technologies that allow us to create dynamic webpages in Java. Tomcat provides a server for us to run them.
-
-Download Tomcat, making sure to get the latest version. Unzip it and move it to the folder of your choice.
-
-**Adding Tomcat to Eclipse**
-Let's navigate back to Eclipse and connect Tomcat so that we can use it to run our Eclipse projects.
-
-If the "Servers" tab is not already added to the bottom section of Eclipse:
-
-Go to Eclipse > Window > Show View > Servers.
-Click on the link provided to create a new server.
-Select Tomcat v9.0 under Apache.
-Select the folder where you moved Apache Tomcat.
-Keep clicking "Next" until you get to "Finish."
+	- Download Tomcat, making sure to get the latest version. Unzip it and move it to the folder of your choice.
+	- **Adding Tomcat to Eclipse**
+		- Let's navigate back to Eclipse and connect Tomcat so that we can use it to run our Eclipse projects.
+		- If the "Servers" tab is not already added to the bottom section of Eclipse:
+		- Go to Eclipse > Window > Show View > Servers.
+		- Click on the link provided to create a new server.
+		- Select Tomcat v9.0 under Apache.
+		- Select the folder where you moved Apache Tomcat.
+		- Keep clicking "Next" until you get to "Finish."
 
 Refer to the dependencies in the pom.xml file for the following:
 - Spring
@@ -46,26 +42,26 @@ Refer to the dependencies in the pom.xml file for the following:
 Link:   https://www.pivotaltracker.com/n/projects/2407513
 
 ## Project Deliverables and Timeline
-10/21
+**10/21**
 - User stories
 - ERD
 - Add dependencies
 
-10/22
+**10/22**
 - Sign up functionality
 - Login functionality
 - Profile functionality
 - Add security
 
-10/23
+**10/23**
 - Post functionality (GET/POST/DELETE)
 - Comment functionality (GET/POST/DELETE)
 
-10/24
+**10/24**
 - Integrate backend with frontend application
 - Testing
 
-10/25
+**10/25**
 - Testing
 
 ## General Approach
