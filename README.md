@@ -98,4 +98,10 @@ public class UserController {
 }
 ```
 
+## Coverage
+
+![erd](imgs/coverage.PNG)
+
+We have achieved >80% coverage on all areas except com.ga.config.
+
 
