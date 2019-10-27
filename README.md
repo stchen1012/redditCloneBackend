@@ -12,7 +12,6 @@ The redditClone backend has been created to allow for users to login, sign up, c
 * [Coverage](#coverage)
 
 
-
 ## Technologies Used
 - Java - utilized Eclipse as the IDE
 - Git / GitHub - to host our code for version control and a shared working repository
@@ -20,25 +19,7 @@ The redditClone backend has been created to allow for users to login, sign up, c
 
 ## Dependencies and Installation
 - Maven
-- **TomCat**
-```
-Apache Tomcat, created by the Apache Software Foundation, is an open-source HTTP server and a container for Java Servlets and Java Server Pages (JSPs), technologies that allow us to create dynamic webpages in Java. Tomcat provides a server for us to run them.
-
-A web server is a container that's used to run applications that satisfy client requests. The communication between client and server takes place using the Hypertext Transfer Protocol (HTTP).
-
-Download Tomcat here, making sure to get the latest version. Unzip it and move it to the folder of your choice.
-
-Adding Tomcat to Eclipse
-Let's navigate back to Eclipse and connect Tomcat so that we can use it to run our Eclipse projects.
-
-If the "Servers" tab is not already added to the bottom section of Eclipse:
-
-Go to Eclipse > Window > Show View > Servers.
-Click on the link provided to create a new server.
-Select Tomcat v9.0 under Apache.
-Select the folder where you moved Apache Tomcat.
-Keep clicking "Next" until you get to "Finish."
-```
+- TomCat
 - Spring
 - Hibernate
 - Postgres
@@ -72,7 +53,6 @@ Link:   https://www.pivotaltracker.com/n/projects/2407513
 
 10/25
 - Testing
-
 
 ## General Approach
 
