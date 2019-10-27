@@ -5,10 +5,13 @@ The redditClone backend has been created to allow for users to login, sign up, c
 ## Table of Contents
 * [Technologies Used](#technologies-used)
 * [Dependencies and Installation](#dependencies-and-installation)
+* [User Stories](#user-stories)
 * [Project Deliverables and Timeline](#project-deliverables-and-timeline)
 * [General Approach](#general-approach)
-* [User Stories](#user-stories)
-* [ERD](#erd)
+* [Design Decisions](#design-decisions)
+* [Coverage](#coverage)
+
+
 
 ## Technologies Used
 - Java - utilized Eclipse as the IDE
@@ -17,7 +20,25 @@ The redditClone backend has been created to allow for users to login, sign up, c
 
 ## Dependencies and Installation
 - Maven
-- TomCat
+- **TomCat**
+```
+Apache Tomcat, created by the Apache Software Foundation, is an open-source HTTP server and a container for Java Servlets and Java Server Pages (JSPs), technologies that allow us to create dynamic webpages in Java. Tomcat provides a server for us to run them.
+
+A web server is a container that's used to run applications that satisfy client requests. The communication between client and server takes place using the Hypertext Transfer Protocol (HTTP).
+
+Download Tomcat here, making sure to get the latest version. Unzip it and move it to the folder of your choice.
+
+Adding Tomcat to Eclipse
+Let's navigate back to Eclipse and connect Tomcat so that we can use it to run our Eclipse projects.
+
+If the "Servers" tab is not already added to the bottom section of Eclipse:
+
+Go to Eclipse > Window > Show View > Servers.
+Click on the link provided to create a new server.
+Select Tomcat v9.0 under Apache.
+Select the folder where you moved Apache Tomcat.
+Keep clicking "Next" until you get to "Finish."
+```
 - Spring
 - Hibernate
 - Postgres
@@ -62,8 +83,6 @@ A few of the challenges that we encountered and how we resolved those issues:
 - Issues relating to the relational mapping of our tables - initially we were setting bidirectional relationships, where the child would be added back to the parent table since we were unaware the Hibernate would automatically handle this for us. This led to many errors where the system would believe that there were duplicate values. 
 
 - Challenges with CORS when integrating the front end with the back end. This was resolved by adding a CorsConfigurationSource to the SecurityConfig file.
-
-- [Testing]
 
 We spent a significant amount of time focused on testing - both writing tests and checking the endpoints to make sure that the functionality was maintained.
 
