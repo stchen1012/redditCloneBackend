@@ -17,6 +17,7 @@ import com.ga.dao.UserDao;
 import com.ga.entity.Comment;
 import com.ga.entity.Post;
 import com.ga.entity.User;
+import com.ga.exceptionhandling.IncorrectLoginException;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -46,6 +47,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public String login(User user) {
 		User foundUser = userDao.login(user);
+		System.out.println(foundUser.getUsername());
 		if(foundUser != null && 
 				foundUser.getUserId() != null && 
 				bCryptPasswordEncoder.matches(user.getPassword(), foundUser.getPassword())) {
@@ -54,7 +56,7 @@ public class UserServiceImpl implements UserService {
 		    return jwtUtil.generateToken(userDetails);
 		}
         	
-		return null;
+		throw new IncorrectLoginException("Incorrect username or password");
 	}
 
 	@Override

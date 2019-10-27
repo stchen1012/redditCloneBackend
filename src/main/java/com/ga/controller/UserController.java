@@ -4,8 +4,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +21,8 @@ import com.ga.entity.Comment;
 import com.ga.entity.JwtResponse;
 import com.ga.entity.Post;
 import com.ga.entity.User;
+import com.ga.exceptionhandling.ErrorResponse;
+import com.ga.exceptionhandling.IncorrectLoginException;
 import com.ga.service.UserService;
 
 @RestController
@@ -50,6 +54,12 @@ public class UserController {
 	@PostMapping("/{postId}/comment")
 	public User addComment(@RequestHeader("Authorization") String headerToken, @PathVariable Long postId, @RequestBody Comment comment) {
 		return userService.addComment(getUserNameFromToken(headerToken), postId, comment);
+	}
+	
+	@ExceptionHandler
+	public ResponseEntity<ErrorResponse> handleExcption(IncorrectLoginException err){
+		ErrorResponse error = new ErrorResponse(HttpStatus.UNAUTHORIZED.value(), err.getMessage());
+		return new ResponseEntity<>(error, HttpStatus.UNAUTHORIZED);
 	}
 	
 	// helper method to get username from token

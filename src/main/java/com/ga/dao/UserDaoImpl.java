@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.ga.entity.Comment;
 import com.ga.entity.Post;
 import com.ga.entity.User;
+import com.ga.exceptionhandling.IncorrectLoginException;
 
 @Repository
 public class UserDaoImpl implements UserDao {
@@ -44,7 +45,11 @@ public class UserDaoImpl implements UserDao {
 			
 			savedUser = (User)session.createQuery("FROM User u WHERE u.username = '" + 
 					user.getUsername() + "'").getSingleResult();
-		} finally {
+		}
+		catch(Exception e) {
+			throw new IncorrectLoginException("Incorrect username or password");
+		}
+		finally {
 			session.close();
 		}
 		return savedUser;

@@ -17,6 +17,7 @@ import com.ga.config.JwtUtil;
 import com.ga.entity.Post;
 import com.ga.entity.User;
 import com.ga.entity.UserProfile;
+import com.ga.exceptionhandling.IncorrectLoginException;
 import com.ga.service.UserService;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -81,6 +82,21 @@ public class UserControllerTest {
 	              .andReturn();
 	      
 	      System.out.println(result.getResponse().getContentAsString());
+	}
+	
+	@Test
+	public void IncorrectLoginException_401_FAIL() throws Exception {
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+			       .post("/user/login")
+			       .contentType(MediaType.APPLICATION_JSON)
+			       .content(createUserPostInJson("test","tester"));
+		
+		when(userService.login(any())).thenThrow(new IncorrectLoginException("Incorrect Login"));
+		
+		MvcResult result = mockMvc.perform(requestBuilder)
+	              .andExpect(status().isUnauthorized())
+//	              .andExpect(content().json("{\"status\":\"401\"}"))
+	              .andReturn();
 	}
 
 	//This converts to JSON object
