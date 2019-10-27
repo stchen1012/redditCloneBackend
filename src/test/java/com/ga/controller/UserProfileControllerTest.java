@@ -22,6 +22,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.ga.config.JwtUtil;
 import com.ga.entity.UserProfile;
 import com.ga.service.UserProfileService;
 
@@ -37,6 +38,8 @@ public class UserProfileControllerTest {
 	@Mock
 	UserProfileService userProfileService;
 	
+	@Mock
+	private JwtUtil jwtUtil;
 	
     @Before
     public void init() {
@@ -56,10 +59,12 @@ public class UserProfileControllerTest {
     public void getUserProfile_UserProfile_Success() throws Exception {
     
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
-    			.get("/profile/{username}", "someUser")
-    			.accept(MediaType.APPLICATION_JSON);
+    			.get("/profile")
+    			.accept(MediaType.APPLICATION_JSON)
+    			.header("Authorization", "Bearer 1234");
 
     	when(userProfileService.getUserProfile(any())).thenReturn(userProfile);
+    	when(jwtUtil.getUsernameFromToken(any())).thenReturn("someUser");
     	
     	
     	mockMvc.perform(requestBuilder)
@@ -70,11 +75,13 @@ public class UserProfileControllerTest {
 	@Test
 	public void addUserProfile_UserProfile_Success() throws Exception {
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
-			       .post("/profile/{username}", "someUser")
+			       .post("/profile")
 			       .contentType(MediaType.APPLICATION_JSON)
+			       .header("Authorization", "Bearer 1234")
 			       .content(createUserProfileInJson("test", "test", "test"));
 		
 		when(userProfileService.addUserProfile((any()), any())).thenReturn(userProfile);
+		when(jwtUtil.getUsernameFromToken(any())).thenReturn("someUser");
 		System.out.println(userProfile.getEmail());
 		
 		MvcResult result = mockMvc.perform(requestBuilder)
@@ -88,11 +95,13 @@ public class UserProfileControllerTest {
 	@Test
 	public void updateUserProfile_UserProfile_SUCCESS() throws Exception {
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
-			       .patch("/profile/{username}", "someUser")
+			       .patch("/profile")
 			       .contentType(MediaType.APPLICATION_JSON)
+			       .header("Authorization", "Bearer 1234")
 			       .content("{\"email\":\"batman@superhero.com\"}");
 		
 		when(userProfileService.updateUserProfile((any()), any())).thenReturn(userProfile);
+		when(jwtUtil.getUsernameFromToken(any())).thenReturn("someUser");
 		
 		MvcResult result = mockMvc.perform(requestBuilder)
 	              .andExpect(status().isOk())

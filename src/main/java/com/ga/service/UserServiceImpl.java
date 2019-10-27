@@ -47,7 +47,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public String login(User user) {
 		User foundUser = userDao.login(user);
-		System.out.println(foundUser.getUsername());
 		if(foundUser != null && 
 				foundUser.getUserId() != null && 
 				bCryptPasswordEncoder.matches(user.getPassword(), foundUser.getPassword())) {
@@ -74,7 +73,7 @@ public class UserServiceImpl implements UserService {
 		User user = userDao.getUserByUsername(username);
 
 		if (user == null)
-			throw new UsernameNotFoundException("Unknown user: " + username);
+			throw new IncorrectLoginException("Incorrect username or password");
 
 		return new org.springframework.security.core.userdetails.User(user.getUsername(),
 				bCryptPasswordEncoder.encode(user.getPassword()), true, true, true, true, getGrantedAuthorities(user));

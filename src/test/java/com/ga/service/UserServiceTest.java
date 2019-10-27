@@ -18,6 +18,7 @@ import com.ga.entity.Comment;
 import com.ga.entity.Post;
 import com.ga.entity.User;
 import com.ga.entity.UserProfile;
+import com.ga.exceptionhandling.IncorrectLoginException;
 
 public class UserServiceTest {
 
@@ -94,6 +95,16 @@ public class UserServiceTest {
         assertEquals(actualToken, expectedToken);
     }
 	
+	@Test(expected = IncorrectLoginException.class)
+    public void login_User_ThrowIncorrectLoginException() {
+        
+        when(userDao.login(any())).thenReturn(null);
+        try {
+        	userService.login(user);	
+        } finally {}
+     
+    }
+	
 	@Test
 	public void addComment_User_SUCCESS() {
 		when(userDao.addComment(any(), any(), any())).thenReturn(user);
@@ -109,7 +120,6 @@ public class UserServiceTest {
 		User tempUser = userService.addPost("Phil", post);
 		assertNotNull("Tested returned null obj, expected not null", tempUser);
 		assertEquals(tempUser.getUserId(), user.getUserId());
-		
 	}
 	
 	
