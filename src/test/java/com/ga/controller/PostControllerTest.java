@@ -21,10 +21,11 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
+import com.ga.config.JwtUtil;
 import com.ga.entity.Comment;
 import com.ga.entity.Post;
 import com.ga.entity.User;
+import com.ga.exceptionhandling.DeleteException;
 import com.ga.service.PostService;
 import com.ga.service.UserService;
 
@@ -46,6 +47,8 @@ public class PostControllerTest {
 	@Mock
 	PostService postService;
 	
+	@Mock
+	JwtUtil jwtUtil;
 	
     @Before
     public void init() {
@@ -121,12 +124,30 @@ public class PostControllerTest {
     public void deletePost_Long_SUCCESS() throws Exception {
     	RequestBuilder requestBuilder = MockMvcRequestBuilders
     			.delete("/post/remove/{postId}", 1)
+    			.header("Authorization", "Bearer 1234")
     			.contentType(MediaType.APPLICATION_JSON);
     	
-    	when(postService.deletePost(any())).thenReturn(1L);
+    	when(postService.deletePost(any(), any())).thenReturn(1L);
+    	when(jwtUtil.getUsernameFromToken(any())).thenReturn("someUser");
 		
     	MvcResult result = mockMvc.perform(requestBuilder)
 	              .andExpect(status().isOk())
+	              .andReturn();    	
+    }
+    
+    @Test
+    public void deletePost_Long_401FAIL() throws Exception {
+    	RequestBuilder requestBuilder = MockMvcRequestBuilders
+    			.delete("/post/remove/{postId}", 1)
+    			.header("Authorization", "Bearer 1234")
+    			.contentType(MediaType.APPLICATION_JSON);
+    	
+    	when(jwtUtil.getUsernameFromToken(any())).thenReturn("someUser");
+    	when(postService.deletePost(any(), any())).thenThrow(new DeleteException("Unauthorized to delete this post"));
+
+		
+    	MvcResult result = mockMvc.perform(requestBuilder)
+    			.andExpect(status().isUnauthorized())
 	              .andReturn();    	
     }
     

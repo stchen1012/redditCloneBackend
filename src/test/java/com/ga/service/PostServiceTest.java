@@ -88,8 +88,8 @@ public class PostServiceTest {
 	
 	@Test
 	public void deletePost_PostId_SUCCESS() {
-		when(postDao.deletePost(any())).thenReturn(1L);
-		Long deletedPost = postService.deletePost(1L);
+		when(postDao.deletePost(any(),any())).thenReturn(1L);
+		Long deletedPost = postService.deletePost("someUser", 1L);
 		assertEquals(new Long(1), deletedPost);
 	}
 

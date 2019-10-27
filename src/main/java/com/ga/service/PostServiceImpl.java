@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import com.ga.dao.PostDao;
 import com.ga.entity.Comment;
 import com.ga.entity.Post;
+import com.ga.exceptionhandling.DeleteException;
 @Service
 public class PostServiceImpl implements PostService {
     @Autowired
@@ -26,7 +27,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Long deletePost(Long postId) {
-        return postDao.deletePost(postId);
+    public Long deletePost(String username, Long postId) throws DeleteException {
+        return postDao.deletePost(username, postId);
     }
 }

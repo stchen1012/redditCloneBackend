@@ -24,6 +24,7 @@ import org.mockito.junit.MockitoRule;
 import com.ga.entity.Comment;
 import com.ga.entity.Post;
 import com.ga.entity.User;
+import com.ga.exceptionhandling.DeleteException;
 
 
 
@@ -79,6 +80,7 @@ public class PostDaoTest {
         post.setTitle("some title");
         post.setDescription("some description");
         post.setComments(comments);
+        post.setUser(user);
         
         posts.add(post);
         
@@ -122,9 +124,17 @@ public class PostDaoTest {
 	public void deletePost_PostId_SUCCESS() {
 		when(session.get(any(Class.class), any())).thenReturn(post);
 		
-		Long deletedPost = postDao.deletePost(1L);
+		Long deletedPost = postDao.deletePost("testuser", 1L);
 		
 		assertEquals(new Long(1), deletedPost);
+	}
+	
+	@Test(expected = DeleteException.class)
+	public void deletePost_PostId_ThrowDeleteException() {
+		when(session.get(any(Class.class), any())).thenReturn(post);
+		
+		Long deletedPost = postDao.deletePost("someUser", 1L);	
+
 	}
 	
 }
