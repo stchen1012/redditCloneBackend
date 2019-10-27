@@ -24,6 +24,8 @@ The redditClone backend has been created to allow for users to login, sign up, c
 - JUnit
 - Mockito
 
+Refer to the pom.xml file.
+
 ## User Stories
 Link:   https://www.pivotaltracker.com/n/projects/2407513
 
@@ -71,21 +73,21 @@ We spent a significant amount of time focused on testing - both writing tests an
 
 ![api](imgs/api_table.PNG)
 
+
 **ERD / Association Choices**
 
 ![erd](imgs/erd.PNG)
 
-- **Post to User (Many-to-One Unidirectional)** - A post is dependent on a user to exist and a call to a post will require a username on load. A user on the other hand can exist independently from a post and a call to a user does not necessarily require a list of posts. Therefore, a unidirectional approach was taken where a post will have reference to a user.
+- **Post to User (Many-to-One Unidirectional)** - A post is dependent on a user to exist and a call to a post requires access to a username to populate the post details on the front-end. A user on the other hand can exist independently from a post and a call to a user does not necessarily require a list of posts. Therefore, a unidirectional approach was taken where a post will have reference to a user.
 
-- **Post to Comment (Bidirectional) -**  A comment is dependent on a post to exist and our front-end requires all comments to be loaded when a post is called. Therefore a bidirectional approach where both sides have a reference to each other
+- **Post to Comment (One-to-Many Bidirectional) -**  A comment is dependent on a post to exist and our front-end requires all comments to be loaded when a post is called. Therefore a bidirectional approach where both sides have a reference to each other
 
-- **Comment to User (Many-to-One Unidirectional) -** A comment is dependent on a user to exist and a call to a comment will require a username on load. A user on the other hand can exist independently from a comment and a call to a user does not necessarily require a list of comments. Therefore, a unidirectional approach was taken where a comment will have reference a user.
+- **Comment to User (Many-to-One Unidirectional) -** A comment is dependent on a user to exist and a call to a comment requires access to a username to populate the comment details on the front-end. A user on the other hand can exist independently from a comment and a call to a user does not necessarily require a list of comments. Therefore, a unidirectional approach was taken where a comment will have reference to a user.
 
 - **User to User Profile (One-to-One Unidirectional) -** A user-profile may only be accessed through a user. Therefore, a one-to-one unidirectional approach was taken where a user will have reference a user-profile.
 
 **Error Handling**
-- **Incorrect Login Details** - Exception handling around login was created. If a user submits an incorrect username, password, or both. Exception is handled and a 401 status is passed along with a JSON object containing a message stating "Incorrect username or password". Login exception is handled through the exception handler below.
-
+- **Incorrect Login Details** - If a user submits an incorrect username, password, or both an IncorrectLoginException is thrown and handled by the exception handler shown below. The handler will send a 401 unauthorized status along with a JSON object containing a message stating "Incorrect username or password".
 ```java
 public class UserController {
 ...
@@ -102,6 +104,6 @@ public class UserController {
 
 ![erd](imgs/coverage.PNG)
 
-We have achieved >80% coverage on all areas except com.ga.config.
+We achieved >80% coverage on all areas except the config package.
 
 
