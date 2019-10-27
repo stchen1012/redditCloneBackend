@@ -74,7 +74,6 @@ public class PostDaoImpl implements PostDao {
         try {
             session.beginTransaction();
             savedPost = session.get(Post.class, postId);
-            System.out.println(savedPost.getUser().getUsername() + " SS " + username);
             if(!savedPost.getUser().getUsername().equals(username)){
             	throw new DeleteException("You are not authorized to delete this post!");
             }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.ga.entity.Comment;
 import com.ga.entity.Post;
 import com.ga.entity.User;
+import com.ga.exceptionhandling.DeleteException;
 
 @Repository
 public class CommentDaoImpl implements CommentDao {
@@ -18,12 +19,15 @@ public class CommentDaoImpl implements CommentDao {
     private SessionFactory sessionFactory;
 
 	@Override
-    public Long deleteComment(Long commentId) {
+    public Long deleteComment(String username, Long commentId) throws DeleteException{
         Session session = sessionFactory.getCurrentSession();
         Comment savedComment = null;
         try {
             session.beginTransaction();
             savedComment = session.get(Comment.class, commentId);
+            if(!savedComment.getUserComment().getUsername().equals(username)){
+            	throw new DeleteException("You are not authorized to delete this comment!");
+            }
             session.delete(savedComment);
             session.getTransaction().commit();
         } finally {

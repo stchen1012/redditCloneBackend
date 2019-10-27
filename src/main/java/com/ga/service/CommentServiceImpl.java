@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.ga.dao.CommentDao;
 import com.ga.entity.Comment;
+import com.ga.exceptionhandling.DeleteException;
 
 @Service
 public class CommentServiceImpl implements CommentService {
@@ -15,8 +16,8 @@ public class CommentServiceImpl implements CommentService {
 	CommentDao commentDao;
 
 	@Override
-	public Long deleteComment(Long commentId) {
-		return commentDao.deleteComment(commentId);
+	public Long deleteComment(String username, Long commentId) throws DeleteException {
+		return commentDao.deleteComment(username, commentId);
 	}
 
 	@Override

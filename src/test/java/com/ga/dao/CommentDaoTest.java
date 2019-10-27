@@ -24,6 +24,7 @@ import org.mockito.junit.MockitoRule;
 import com.ga.entity.Comment;
 import com.ga.entity.Post;
 import com.ga.entity.User;
+import com.ga.exceptionhandling.DeleteException;
 
 public class CommentDaoTest {
 	
@@ -57,15 +58,17 @@ public class CommentDaoTest {
     @Before
     public void initializer() {
     	comment = new Comment();
-    	comments = new ArrayList<Comment>();
-        
-    	comment.setCommentId(1L);
-    	comment.setText("some post");
-    	comments.add(comment);
-    	
+    	comments = new ArrayList<Comment>();    	
+
     	user.setUserId(1L);
         user.setUsername("testuser");
         user.setPassword("testpass");
+
+    	comment.setCommentId(1L);
+    	comment.setText("some post");
+    	comment.setUserComment(user);
+    	comments.add(comment);
+    	
 
         when(sessionFactory.getCurrentSession()).thenReturn(session);
         when(session.getTransaction()).thenReturn(transaction);
@@ -87,10 +90,18 @@ public class CommentDaoTest {
     public void deleteComment_Long_SUCCESS() {
     	when(session.get(any(Class.class), any())).thenReturn(comment);
     	
-    	Long tempId = commentDao.deleteComment(1L);
+    	Long tempId = commentDao.deleteComment("testuser", 1L);
     	
     	assertNotNull("Tested returned null obj, expected not null", tempId);
     	assertEquals(comment.getCommentId(), tempId);    	
+    }
+    
+    @Test(expected = DeleteException.class)
+    public void deleteComment_Long_401Unauthorized() {
+    	when(session.get(any(Class.class), any())).thenReturn(comment);
+    	
+    	Long tempId = commentDao.deleteComment("badname", 1L);
+	
     }
 
 }

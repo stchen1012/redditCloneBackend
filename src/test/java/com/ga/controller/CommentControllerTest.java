@@ -21,7 +21,9 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import static org.mockito.ArgumentMatchers.anyString;
 
+import com.ga.config.JwtUtil;
 import com.ga.entity.Comment;
+import com.ga.exceptionhandling.DeleteException;
 import com.ga.service.CommentService;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -35,6 +37,9 @@ public class CommentControllerTest {
 	
 	@Mock
 	CommentService commentService;
+	
+	@Mock
+	JwtUtil jwtUtil;
 	
 	@Before
 	public void init() {
@@ -50,13 +55,29 @@ public class CommentControllerTest {
     public void deleteComment_Long_SUCCESS() throws Exception {
     	RequestBuilder requestBuilder = MockMvcRequestBuilders
     			.delete("/comment/remove/{commentId}", 1)
+    			.header("Authorization", "Bearer 1234")
     			.contentType(MediaType.APPLICATION_JSON);
     	
-    	when(commentService.deleteComment(any())).thenReturn(1L);
+    	when(commentService.deleteComment(any(), any())).thenReturn(1L);
 		
     	MvcResult result = mockMvc.perform(requestBuilder)
 	              .andExpect(status().isOk())
 	              .andReturn();    	
+    }
+	
+	@Test
+    public void deleteComment_Long_401Unauthorized() throws Exception {
+    	RequestBuilder requestBuilder = MockMvcRequestBuilders
+    			.delete("/comment/remove/{commentId}", 1)
+    			.header("Authorization", "Bearer 1234")
+    			.contentType(MediaType.APPLICATION_JSON);
+    	
+       	when(jwtUtil.getUsernameFromToken(any())).thenReturn("someUser");
+    	when(commentService.deleteComment(any(), any())).thenThrow(new DeleteException("Unauthorized to delete this comment"));
+		
+    	MvcResult result = mockMvc.perform(requestBuilder)
+    			.andExpect(status().isUnauthorized())
+	              .andReturn();    		
     }
 	
 	 @Test

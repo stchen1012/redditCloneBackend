@@ -53,8 +53,8 @@ public class CommentServiceTest {
 
     @Test
     public void deleteComment_Long_SUCCESS() {
-    	when(commentDao.deleteComment(any())).thenReturn(1L);
-    	Long tempId = commentService.deleteComment(1L);
+    	when(commentDao.deleteComment(any(), any())).thenReturn(1L);
+    	Long tempId = commentService.deleteComment("someuser", 1L);
     	assertEquals(tempId, comment.getCommentId());
     }
     
