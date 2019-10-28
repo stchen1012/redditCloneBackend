@@ -70,9 +70,11 @@ The general approach taken was to work collaboratively to ensure that all projec
 
 A few of the challenges that we encountered and how we resolved those issues:
 
-- Issues relating to the relational mapping of our tables - initially we were setting bidirectional relationships, where the child would be added back to the parent table since we were unaware the Hibernate would automatically handle this for us. This led to many errors where the system would believe that there were duplicate values. 
+- Issues relating to the relational mapping of our tables in Hibernate - initially we were setting bidirectional relationships, where the child would be added back to the parent table since we were unaware the Hibernate would automatically handle this for us. This led to many errors around deleting and adding child entities specifically for comments. 
 
 - Challenges with CORS when integrating the front end with the back end. This was resolved by adding a CorsConfigurationSource to the SecurityConfig file.
+
+- We're new to testing and we were not sure if we were unit testing properly. 
 
 We spent a significant amount of time focused on testing - both writing tests and checking the endpoints to make sure that the functionality was maintained.
 
